@@ -1,0 +1,19 @@
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: minha_base
+      MYSQL_USER: user
+      MYSQL_PASSWORD: senha
+      MYSQL_ROOT_PASSWORD: senha
+    ports:
+      - "3307:3306"
+
+  spring-app:
+    build: .
+    environment:
+      URL_MYSQL: jdbc:mysql://mysql:3306/minha_base
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: senha
+    depends_on:
+      - mysql
